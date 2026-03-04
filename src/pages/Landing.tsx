@@ -57,7 +57,7 @@ const Landing = () => {
             <span className="text-sm font-bold tracking-tight">MemSync</span>
           </div>
           <button
-            onClick={() => navigate("/chat")}
+            onClick={() => navigate("/auth")}
             className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-transform hover:scale-105 active:scale-95"
           >
             <MessageSquare className="h-3.5 w-3.5" />
@@ -116,7 +116,7 @@ const Landing = () => {
             className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
           >
             <button
-              onClick={() => navigate("/chat")}
+              onClick={() => navigate("/auth")}
               className="group flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:scale-105 active:scale-95 glow-ring"
             >
               Start Chatting
@@ -215,7 +215,7 @@ const Landing = () => {
               Try our demo assistant and see how MemSync-powered memory transforms the conversation.
             </p>
             <button
-              onClick={() => navigate("/chat")}
+              onClick={() => navigate("/auth")}
               className="group mt-8 inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:scale-105 active:scale-95 glow-ring"
             >
               Launch AI Assistant
