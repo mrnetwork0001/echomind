@@ -15,11 +15,10 @@ serve(async (req) => {
   try {
     const { user_id, message } = await req.json();
 
-    const url = `${BACKEND_BASE}?user_id=${encodeURIComponent(user_id)}&message=${encodeURIComponent(message)}`;
-
-    const response = await fetch(url, {
+    const response = await fetch(BACKEND_BASE, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id, message }),
     });
 
     const responseText = await response.text();
