@@ -103,9 +103,10 @@ const Landing = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
           >
-            Build a smart assistant that truly remembers user preferences and past interactions
-            by integrating <span className="font-semibold text-foreground">MemSync</span> — OpenGradient's
-            unified AI memory product.
+            A smart assistant designed to truly understand you over time, this AI goes beyond one-off
+            conversations by remembering your preferences, habits, and past interactions. Powered by{" "}
+            <span className="font-semibold text-foreground">MemSync</span>; OpenGradient's unified AI
+            memory product, it seamlessly integrates long-term memory into every interaction.
           </motion.p>
 
           <motion.div
