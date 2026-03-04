@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Brain, Sparkles } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import ChatMessage from "@/components/ChatMessage";
