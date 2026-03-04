@@ -19,7 +19,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/chat" element={<Index />} />
+          <Route path="/chat" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
