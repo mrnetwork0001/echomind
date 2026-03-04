@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Brain, Sparkles } from "lucide-react";
+import { Brain, Sparkles, LogOut, Loader2 } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
 import MemoriesSidebar from "@/components/MemoriesSidebar";
+import { supabase } from "@/integrations/supabase/client";
+import { sendChatMessage } from "@/lib/api";
+import { toast } from "sonner";
 
 interface Message {
   id: string;
@@ -13,40 +16,52 @@ interface Message {
   timestamp: string;
 }
 
-const initialMessages: Message[] = [
-  {
-    id: "1",
-    role: "assistant",
-    content: "Hey! I remember you mentioned you're working on a new project. How's that going?",
-    timestamp: "10:42 AM",
-  },
-  {
-    id: "2",
-    role: "user",
-    content: "It's going well! I just finished the API layer. Moving on to the frontend now.",
-    timestamp: "10:43 AM",
-  },
-  {
-    id: "3",
-    role: "assistant",
-    content: "Nice progress! Since you prefer React with TypeScript, I can help you set up the component architecture. Want me to suggest a structure?",
-    timestamp: "10:43 AM",
-  },
-];
-
-const aiResponses = [
-  "That's interesting! I'll keep that in mind for our future conversations.",
-  "Got it. Based on what I know about your preferences, here's what I'd suggest…",
-  "I've noted that down. Anything else you'd like me to remember?",
-  "Great question! Let me think about that considering what I know about your work.",
-];
+const STORAGE_KEY = "echomind_chat_history";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [memoriesOpen, setMemoriesOpen] = useState(true);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
-  const handleSend = (content: string) => {
+  // Get user id from session
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        setUserId(session.user.id);
+      }
+    });
+  }, []);
+
+  // Load persisted chat history for this user
+  useEffect(() => {
+    if (!userId) return;
+    try {
+      const stored = localStorage.getItem(`${STORAGE_KEY}_${userId}`);
+      if (stored) {
+        setMessages(JSON.parse(stored));
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }, [userId]);
+
+  // Persist chat history on change
+  useEffect(() => {
+    if (!userId || messages.length === 0) return;
+    localStorage.setItem(`${STORAGE_KEY}_${userId}`, JSON.stringify(messages));
+  }, [messages, userId]);
+
+  // Auto-scroll to bottom
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const handleSend = async (content: string) => {
+    if (!userId) return;
+
     const now = new Date();
     const timestamp = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
@@ -58,17 +73,27 @@ const Index = () => {
     };
 
     setMessages((prev) => [...prev, userMsg]);
+    setLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const data = await sendChatMessage(userId, content);
       const aiMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: aiResponses[Math.floor(Math.random() * aiResponses.length)],
+        content: data.response,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, aiMsg]);
-    }, 800);
+    } catch {
+      toast.error("EchoMind backend is waking up, please try again in a moment.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate("/auth");
   };
 
   return (
@@ -82,26 +107,41 @@ const Index = () => {
               <Sparkles className="h-4 w-4 text-primary" />
             </div>
             <div className="text-left">
-              <h1 className="text-sm font-semibold text-foreground">Nova</h1>
+              <h1 className="text-sm font-semibold text-foreground">EchoMind</h1>
               <p className="text-[11px] text-muted-foreground font-mono">AI Assistant</p>
             </div>
           </button>
 
-          <button
-            onClick={() => setMemoriesOpen(!memoriesOpen)}
-            className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-              memoriesOpen
-                ? "bg-primary/15 text-primary"
-                : "bg-secondary text-secondary-foreground hover:bg-surface-hover"
-            }`}
-          >
-            <Brain className="h-3.5 w-3.5" />
-            Memories
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setMemoriesOpen(!memoriesOpen)}
+              className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                memoriesOpen
+                  ? "bg-primary/15 text-primary"
+                  : "bg-secondary text-secondary-foreground hover:bg-surface-hover"
+              }`}
+            >
+              <Brain className="h-3.5 w-3.5" />
+              Memories
+            </button>
+            <button
+              onClick={handleSignOut}
+              className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium bg-secondary text-secondary-foreground hover:bg-destructive/15 hover:text-destructive transition-colors"
+            >
+              <LogOut className="h-3.5 w-3.5" />
+              Sign Out
+            </button>
+          </div>
         </header>
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto scrollbar-thin px-6 py-6 space-y-5">
+          {messages.length === 0 && (
+            <div className="flex flex-col items-center justify-center h-full text-muted-foreground gap-2">
+              <Sparkles className="h-8 w-8 text-primary/40" />
+              <p className="text-sm">Send a message to start chatting with EchoMind</p>
+            </div>
+          )}
           {messages.map((msg) => (
             <ChatMessage
               key={msg.id}
@@ -110,6 +150,13 @@ const Index = () => {
               timestamp={msg.timestamp}
             />
           ))}
+          {loading && (
+            <div className="flex items-center gap-2 text-muted-foreground text-sm">
+              <Loader2 className="h-4 w-4 animate-spin text-primary" />
+              <span>EchoMind is thinking…</span>
+            </div>
+          )}
+          <div ref={bottomRef} />
         </div>
 
         {/* Input */}
