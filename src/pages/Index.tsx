@@ -42,6 +42,7 @@ const aiResponses = [
 ];
 
 const Index = () => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [memoriesOpen, setMemoriesOpen] = useState(true);
 
