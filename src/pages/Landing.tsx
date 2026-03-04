@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Brain, Zap, Shield, MessageSquare, ArrowRight, Sparkles, Database, RefreshCw } from "lucide-react";
+import { Zap, Shield, MessageSquare, ArrowRight, Sparkles, Database, RefreshCw, Brain, BookOpen } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import echomindLogo from "@/assets/echomind-logo.png";
 
 const features = [
   {
@@ -51,24 +52,30 @@ const Landing = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/15">
-              <Brain className="h-4 w-4 text-primary" />
-            </div>
-            <span className="text-sm font-bold tracking-tight">MemSync</span>
+            <img src={echomindLogo} alt="EchoMind" className="h-8 w-8 rounded-lg object-contain" />
+            <span className="text-sm font-bold tracking-tight">EchoMind</span>
           </div>
-          <button
-            onClick={() => navigate("/auth")}
-            className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-transform hover:scale-105 active:scale-95"
-          >
-            <MessageSquare className="h-3.5 w-3.5" />
-            Try the Assistant
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate("/how-it-works")}
+              className="flex items-center gap-2 rounded-lg border border-border bg-secondary/50 px-4 py-2 text-xs font-medium text-secondary-foreground transition-colors hover:bg-surface-hover"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              How It Works
+            </button>
+            <button
+              onClick={() => navigate("/auth")}
+              className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-transform hover:scale-105 active:scale-95"
+            >
+              <MessageSquare className="h-3.5 w-3.5" />
+              Try the Assistant
+            </button>
+          </div>
         </div>
       </nav>
 
       {/* Hero */}
       <section className="relative flex min-h-screen items-center justify-center pt-16">
-        {/* Background image */}
         <div className="absolute inset-0">
           <img src={heroBg} alt="" className="h-full w-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
@@ -89,30 +96,36 @@ const Landing = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl"
+            className="text-5xl font-bold leading-tight tracking-tight sm:text-7xl lg:text-8xl"
           >
-            An AI that{" "}
-            <span className="text-primary glow-text">remembers</span>
-            <br />
-            who you are
+            <span className="text-primary glow-text">EchoMind</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-4 text-2xl font-semibold leading-tight tracking-tight sm:text-3xl lg:text-4xl"
+          >
+            An AI that <span className="text-primary">remembers</span>
+            <br />
+            who you are
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
             className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
           >
-            A smart assistant designed to truly understand you over time, this AI goes beyond one-off
-            conversations by remembering your preferences, habits, and past interactions. Powered by{" "}
-            <span className="font-semibold text-foreground">MemSync</span>; OpenGradient's unified AI
-            memory product, it seamlessly integrates long-term memory into every interaction.
+            A smart assistant that remembers your preferences and past interactions, powered by{" "}
+            <span className="font-semibold text-foreground">MemSync</span> from OpenGradient for seamless long-term memory.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
+            transition={{ duration: 0.7, delay: 0.45 }}
             className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
           >
             <button
@@ -170,7 +183,7 @@ const Landing = () => {
               Memory, <span className="text-primary">reimagined</span>
             </h2>
             <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
-              MemSync gives your AI the ability to form genuine understanding — not just pattern matching.
+              EchoMind gives your AI the ability to form genuine understanding — not just pattern matching.
             </p>
           </motion.div>
 
@@ -212,7 +225,7 @@ const Landing = () => {
               Ready to experience <span className="text-primary">personalized AI</span>?
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Try our demo assistant and see how MemSync-powered memory transforms the conversation.
+              Try our assistant and see how MemSync-powered memory transforms the conversation.
             </p>
             <button
               onClick={() => navigate("/auth")}
@@ -228,9 +241,16 @@ const Landing = () => {
       {/* Footer */}
       <footer className="border-t border-border py-8">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Brain className="h-3.5 w-3.5 text-primary" />
-            <span className="font-mono">MemSync by OpenGradient</span>
+          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <span className="font-mono">Build by </span>
+            <a
+              href="https://x.com/encrypt_wizard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono font-semibold text-primary hover:underline"
+            >
+              MrNetwork
+            </a>
           </div>
           <span className="text-[11px] text-muted-foreground font-mono">© 2026</span>
         </div>
