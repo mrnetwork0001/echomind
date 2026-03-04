@@ -1,9 +1,4 @@
-const API_BASE_URL = "http://38.49.216.120:8000";
-
-export interface ChatRequest {
-  user_id: string;
-  message: string;
-}
+import { supabase } from "@/integrations/supabase/client";
 
 export interface ChatResponse {
   response: string;
@@ -11,15 +6,17 @@ export interface ChatResponse {
 }
 
 export async function sendChatMessage(userId: string, message: string): Promise<ChatResponse> {
-  const res = await fetch(`${API_BASE_URL}/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user_id: userId, message } as ChatRequest),
+  const { data, error } = await supabase.functions.invoke("chat-proxy", {
+    body: { user_id: userId, message },
   });
 
-  if (!res.ok) {
-    throw new Error(`Backend error: ${res.status}`);
+  if (error) {
+    throw new Error(error.message);
   }
 
-  return res.json();
+  if (data?.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
 }
