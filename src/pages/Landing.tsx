@@ -116,7 +116,7 @@ const Landing = () => {
             className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
           >
             <button
-              onClick={() => navigate("/chat")}
+              onClick={() => navigate("/auth")}
               className="group flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:scale-105 active:scale-95 glow-ring"
             >
               Start Chatting
