@@ -215,7 +215,7 @@ const Landing = () => {
               Try our demo assistant and see how MemSync-powered memory transforms the conversation.
             </p>
             <button
-              onClick={() => navigate("/chat")}
+              onClick={() => navigate("/auth")}
               className="group mt-8 inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:scale-105 active:scale-95 glow-ring"
             >
               Launch AI Assistant
