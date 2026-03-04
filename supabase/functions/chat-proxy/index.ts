@@ -22,6 +22,8 @@ serve(async (req) => {
     });
 
     const responseText = await response.text();
+    console.log("Backend status:", response.status);
+    console.log("Backend response:", responseText);
 
     if (!response.ok) {
       return new Response(
@@ -30,9 +32,20 @@ serve(async (req) => {
       );
     }
 
-    return new Response(responseText, {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    // Parse and check for application-level errors
+    try {
+      const parsed = JSON.parse(responseText);
+      if (parsed.error) {
+        console.log("Backend returned error in response body:", parsed.error);
+      }
+      return new Response(JSON.stringify(parsed), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    } catch {
+      return new Response(responseText, {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
   } catch (error) {
     return new Response(
       JSON.stringify({ error: error.message }),
