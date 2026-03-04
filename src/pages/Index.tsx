@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Brain, Sparkles } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import ChatMessage from "@/components/ChatMessage";
@@ -41,6 +42,7 @@ const aiResponses = [
 ];
 
 const Index = () => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [memoriesOpen, setMemoriesOpen] = useState(true);
 
@@ -75,15 +77,15 @@ const Index = () => {
       <div className="flex flex-1 flex-col min-w-0">
         {/* Header */}
         <header className="flex items-center justify-between px-6 py-3 border-b border-border">
-          <div className="flex items-center gap-3">
+          <button onClick={() => navigate("/")} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/15">
               <Sparkles className="h-4 w-4 text-primary" />
             </div>
-            <div>
+            <div className="text-left">
               <h1 className="text-sm font-semibold text-foreground">Nova</h1>
               <p className="text-[11px] text-muted-foreground font-mono">AI Assistant</p>
             </div>
-          </div>
+          </button>
 
           <button
             onClick={() => setMemoriesOpen(!memoriesOpen)}
