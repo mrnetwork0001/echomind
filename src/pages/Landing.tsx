@@ -57,7 +57,7 @@ const Landing = () => {
             <span className="text-sm font-bold tracking-tight">MemSync</span>
           </div>
           <button
-            onClick={() => navigate("/chat")}
+            onClick={() => navigate("/auth")}
             className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-transform hover:scale-105 active:scale-95"
           >
             <MessageSquare className="h-3.5 w-3.5" />
