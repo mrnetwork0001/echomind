@@ -5,7 +5,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
-const BACKEND_URL = "http://38.49.216.120:8000/chat";
+const BACKEND_BASE = "http://38.49.216.120:8000/chat";
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -15,19 +15,23 @@ serve(async (req) => {
   try {
     const { user_id, message } = await req.json();
 
-    const response = await fetch(BACKEND_URL, {
+    const url = `${BACKEND_BASE}?user_id=${encodeURIComponent(user_id)}&message=${encodeURIComponent(message)}`;
+
+    const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id, message }),
     });
 
+    const responseText = await response.text();
+
     if (!response.ok) {
-      throw new Error(`Backend returned ${response.status}`);
+      return new Response(
+        JSON.stringify({ error: `Backend returned ${response.status}`, details: responseText }),
+        { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
-    const data = await response.json();
-
-    return new Response(JSON.stringify(data), {
+    return new Response(responseText, {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
