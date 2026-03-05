@@ -30,7 +30,7 @@ EchoMind is a decentralized AI assistant built on the **OpenGradient** network. 
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/echomind.git](https://github.com/your-username/echomind.git)
+   git clone [https://github.com/mrnetwork0001/echomind.git](https://github.com/mrnetwork0001/echomind.git)
    cd echomind
 
 **2. Set up a Virtual Environment:**
