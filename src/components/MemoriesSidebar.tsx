@@ -15,7 +15,7 @@ interface MemoriesSidebarProps {
   refreshTrigger?: number;
 }
 
-const MemoriesSidebar = ({ open, onClose }: MemoriesSidebarProps) => {
+const MemoriesSidebar = ({ open, onClose, refreshTrigger }: MemoriesSidebarProps) => {
   const [memories, setMemories] = useState<MemoryItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
