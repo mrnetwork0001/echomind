@@ -38,11 +38,9 @@ const ChatMessage = ({ content, role, timestamp }: ChatMessageProps) => {
               : "bg-chat-ai text-foreground border border-border"
           }`}
         >
-          <ReactMarkdown
-            className="prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:my-2"
-          >
-            {content}
-          </ReactMarkdown>
+          <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:my-2">
+            <ReactMarkdown>{content}</ReactMarkdown>
+          </div>
         </div>
         <span className="text-[11px] text-muted-foreground font-mono px-1">
           {timestamp}
