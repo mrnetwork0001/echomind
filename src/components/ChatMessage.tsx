@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Bot, User } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 interface ChatMessageProps {
   content: string;
