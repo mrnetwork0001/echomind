@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Sparkles, Mail, Lock, ArrowLeft, Loader2 } from "lucide-react";
+import { Sparkles, Mail, Lock, ArrowLeft, Loader2, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
