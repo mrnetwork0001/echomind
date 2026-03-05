@@ -80,6 +80,25 @@ const Auth = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {!isLogin && !isForgot && (
+            <div className="space-y-2">
+              <label className="text-sm text-muted-foreground">Username</label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Your display name"
+                  required
+                  minLength={2}
+                  maxLength={30}
+                  className="w-full h-11 pl-10 pr-4 rounded-lg bg-secondary border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm"
+                />
+              </div>
+            </div>
+          )}
+
           <div className="space-y-2">
             <label className="text-sm text-muted-foreground">Email</label>
             <div className="relative">
