@@ -131,15 +131,26 @@ const Auth = () => {
           </button>
         </form>
 
-        <p className="text-center text-sm text-muted-foreground mt-6">
-          {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-          <button
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-primary hover:underline font-medium"
-          >
-            {isLogin ? "Sign up" : "Sign in"}
-          </button>
-        </p>
+        {isForgot ? (
+          <p className="text-center text-sm text-muted-foreground mt-6">
+            <button
+              onClick={() => setIsForgot(false)}
+              className="text-primary hover:underline font-medium"
+            >
+              Back to sign in
+            </button>
+          </p>
+        ) : (
+          <p className="text-center text-sm text-muted-foreground mt-6">
+            {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+            <button
+              onClick={() => setIsLogin(!isLogin)}
+              className="text-primary hover:underline font-medium"
+            >
+              {isLogin ? "Sign up" : "Sign in"}
+            </button>
+          </p>
+        )}
       </motion.div>
     </div>
   );
