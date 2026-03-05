@@ -34,7 +34,10 @@ const Auth = () => {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: window.location.origin },
+          options: {
+            emailRedirectTo: window.location.origin,
+            data: { username },
+          },
         });
         if (error) throw error;
         toast.success("Check your email to confirm your account!");
