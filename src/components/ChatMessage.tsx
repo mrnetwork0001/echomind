@@ -32,13 +32,13 @@ const ChatMessage = ({ content, role, timestamp }: ChatMessageProps) => {
 
       <div className={`flex max-w-[75%] flex-col gap-1 ${isUser ? "items-end" : ""}`}>
         <div
-          className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+          className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed max-h-[60vh] overflow-y-auto scrollbar-thin ${
             isUser
               ? "bg-chat-user text-foreground"
               : "bg-chat-ai text-foreground border border-border"
           }`}
         >
-          <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:my-2">
+          <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:my-2 prose-code:text-primary prose-pre:bg-secondary prose-pre:overflow-x-auto">
             <ReactMarkdown>{content}</ReactMarkdown>
           </div>
         </div>
