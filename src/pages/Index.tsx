@@ -21,7 +21,7 @@ const STORAGE_KEY = "echomind_chat_history";
 const Index = () => {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
-  const [memoriesOpen, setMemoriesOpen] = useState(true);
+  const [memoriesOpen, setMemoriesOpen] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [memoryRefresh, setMemoryRefresh] = useState(0);
