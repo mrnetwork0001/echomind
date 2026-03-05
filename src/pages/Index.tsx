@@ -23,6 +23,7 @@ const Index = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [memoriesOpen, setMemoriesOpen] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const [username, setUsername] = useState<string>("User");
   const [loading, setLoading] = useState(false);
   const [memoryRefresh, setMemoryRefresh] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
