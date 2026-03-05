@@ -24,6 +24,7 @@ const Index = () => {
   const [memoriesOpen, setMemoriesOpen] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [memoryRefresh, setMemoryRefresh] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Get user id from session
