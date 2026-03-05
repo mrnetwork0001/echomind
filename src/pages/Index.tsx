@@ -85,6 +85,7 @@ const Index = () => {
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, aiMsg]);
+      setMemoryRefresh((prev) => prev + 1);
     } catch {
       toast.error("EchoMind backend is waking up, please try again in a moment.");
     } finally {
