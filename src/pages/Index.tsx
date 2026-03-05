@@ -23,15 +23,25 @@ const Index = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [memoriesOpen, setMemoriesOpen] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const [username, setUsername] = useState<string>("User");
   const [loading, setLoading] = useState(false);
   const [memoryRefresh, setMemoryRefresh] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Get user id from session
+  // Get user id and username from session
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setUserId(session.user.id);
+        // Fetch username from profiles
+        supabase
+          .from("profiles")
+          .select("username")
+          .eq("id", session.user.id)
+          .single()
+          .then(({ data }) => {
+            if (data?.username) setUsername(data.username);
+          });
       }
     });
   }, []);
@@ -77,7 +87,7 @@ const Index = () => {
     setLoading(true);
 
     try {
-      const data = await sendChatMessage(userId, content);
+      const data = await sendChatMessage(userId, content, username);
       const aiMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",

@@ -13,12 +13,12 @@ serve(async (req) => {
   }
 
   try {
-    const { user_id, message } = await req.json();
+    const { user_id, message, username } = await req.json();
 
     const response = await fetch(BACKEND_BASE, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id, message }),
+      body: JSON.stringify({ user_id, message, username }),
     });
 
     const responseText = await response.text();

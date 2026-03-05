@@ -5,9 +5,9 @@ export interface ChatResponse {
   [key: string]: unknown;
 }
 
-export async function sendChatMessage(userId: string, message: string): Promise<ChatResponse> {
+export async function sendChatMessage(userId: string, message: string, username?: string): Promise<ChatResponse> {
   const { data, error } = await supabase.functions.invoke("chat-proxy", {
-    body: { user_id: userId, message },
+    body: { user_id: userId, message, username },
   });
 
   if (error) {
