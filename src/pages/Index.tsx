@@ -24,6 +24,7 @@ const Index = () => {
   const [memoriesOpen, setMemoriesOpen] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [memoryRefresh, setMemoryRefresh] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Get user id from session
@@ -84,6 +85,7 @@ const Index = () => {
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, aiMsg]);
+      setMemoryRefresh((prev) => prev + 1);
     } catch {
       toast.error("EchoMind backend is waking up, please try again in a moment.");
     } finally {
@@ -166,7 +168,7 @@ const Index = () => {
       {/* Memories sidebar */}
       <AnimatePresence>
         {memoriesOpen && (
-          <MemoriesSidebar open={memoriesOpen} onClose={() => setMemoriesOpen(false)} />
+          <MemoriesSidebar open={memoriesOpen} onClose={() => setMemoriesOpen(false)} refreshTrigger={memoryRefresh} />
         )}
       </AnimatePresence>
     </div>

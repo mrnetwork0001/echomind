@@ -12,9 +12,10 @@ interface MemoryItem {
 interface MemoriesSidebarProps {
   open: boolean;
   onClose: () => void;
+  refreshTrigger?: number;
 }
 
-const MemoriesSidebar = ({ open, onClose }: MemoriesSidebarProps) => {
+const MemoriesSidebar = ({ open, onClose, refreshTrigger }: MemoriesSidebarProps) => {
   const [memories, setMemories] = useState<MemoryItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +48,7 @@ const MemoriesSidebar = ({ open, onClose }: MemoriesSidebarProps) => {
     if (open) {
       fetchMemories();
     }
-  }, [open]);
+  }, [open, refreshTrigger]);
 
   if (!open) return null;
 
