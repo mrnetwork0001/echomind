@@ -21,6 +21,7 @@ serve(async (req) => {
     }
 
     const apiKey = Deno.env.get("OG_PRIVATE_KEY");
+    console.log("OG_PRIVATE_KEY length:", apiKey?.length, "prefix:", apiKey?.substring(0, 6), "suffix:", apiKey?.substring((apiKey?.length ?? 0) - 4));
     if (!apiKey) {
       return new Response(
         JSON.stringify({ error: "API key not configured" }),
@@ -28,12 +29,16 @@ serve(async (req) => {
       );
     }
 
+    const trimmedKey = apiKey.trim();
     const url = `https://api.memchat.io/v1/memories?user_id=${encodeURIComponent(user_id)}&page=1&page_size=10`;
+    
+    console.log("Fetching:", url);
+    console.log("Using header: X-API-Key, key length:", trimmedKey.length);
     
     const response = await fetch(url, {
       method: "GET",
       headers: {
-        "X-API-Key": apiKey,
+        "X-API-Key": trimmedKey,
         "Content-Type": "application/json",
       },
     });
