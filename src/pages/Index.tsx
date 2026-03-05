@@ -168,7 +168,7 @@ const Index = () => {
       {/* Memories sidebar */}
       <AnimatePresence>
         {memoriesOpen && (
-          <MemoriesSidebar open={memoriesOpen} onClose={() => setMemoriesOpen(false)} />
+          <MemoriesSidebar open={memoriesOpen} onClose={() => setMemoriesOpen(false)} refreshTrigger={memoryRefresh} />
         )}
       </AnimatePresence>
     </div>
