@@ -394,7 +394,7 @@ const HowItWorks = () => {
       <footer className="border-t border-border py-8">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <span className="font-mono">Build by </span>
+            <span className="font-mono">Built by </span>
             <a
               href="https://x.com/encrypt_wizard"
               target="_blank"
