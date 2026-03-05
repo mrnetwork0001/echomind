@@ -48,7 +48,7 @@ const MemoriesSidebar = ({ open, onClose, refreshTrigger }: MemoriesSidebarProps
     if (open) {
       fetchMemories();
     }
-  }, [open]);
+  }, [open, refreshTrigger]);
 
   if (!open) return null;
 
