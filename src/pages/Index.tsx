@@ -87,7 +87,7 @@ const Index = () => {
     setLoading(true);
 
     try {
-      const data = await sendChatMessage(userId, content);
+      const data = await sendChatMessage(userId, content, username);
       const aiMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
