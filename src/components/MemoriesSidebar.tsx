@@ -12,6 +12,7 @@ interface MemoryItem {
 interface MemoriesSidebarProps {
   open: boolean;
   onClose: () => void;
+  refreshTrigger?: number;
 }
 
 const MemoriesSidebar = ({ open, onClose }: MemoriesSidebarProps) => {
