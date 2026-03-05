@@ -65,12 +65,12 @@ const Auth = () => {
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 glow-ring">
             <Sparkles className="h-5 w-5 text-primary" />
           </div>
-          <div>
+           <div>
             <h1 className="text-xl font-semibold text-foreground">
-              {isLogin ? "Welcome back" : "Create account"}
+              {isForgot ? "Reset password" : isLogin ? "Welcome back" : "Create account"}
             </h1>
             <p className="text-xs text-muted-foreground font-mono">
-              {isLogin ? "Sign in to continue" : "Get started with Nova"}
+              {isForgot ? "We'll send you a reset link" : isLogin ? "Sign in to continue" : "Get started with Nova"}
             </p>
           </div>
         </div>
