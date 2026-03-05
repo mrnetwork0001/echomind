@@ -28,7 +28,7 @@ serve(async (req) => {
       );
     }
 
-    const url = `https://api.memchat.io/v1/memories?user_id=${encodeURIComponent(user_id)}&page=1&page_size=50`;
+    const url = `https://api.memchat.io/v1/memories?user_id=${encodeURIComponent(user_id)}&page=1&page_size=10`;
     
     const response = await fetch(url, {
       method: "GET",
