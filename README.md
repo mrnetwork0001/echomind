@@ -1,8 +1,11 @@
 # EchoMind 
 
+<img width="1366" height="903" alt="06 03 2026_22 56 29_REC" src="https://github.com/user-attachments/assets/759b4765-ef80-4236-9d84-578a91a3f496" />
+
 EchoMind is a decentralized AI assistant built on the **OpenGradient** network. It leverages **Verifiable Inference** through Trusted Execution Environments (TEEs) to provide secure, private, and transparent AI interactions. By integrating **MemSync**, EchoMind maintains a persistent, decentralized memory of user technical interests and past conversations.
 
----
+
+
 
 ##  Key Features
 
